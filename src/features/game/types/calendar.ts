@@ -8,16 +8,19 @@ import tornado from "assets/icons/tornado.webp";
 import fullMoon from "assets/icons/full_moon.webp";
 import tsunami from "assets/icons/tsunami.webp";
 import greatFreeze from "assets/icons/great-freeze.webp";
+import locust from "assets/icons/locust.webp";
 import calendar from "assets/icons/calendar.webp";
 import { SUNNYSIDE } from "assets/sunnyside";
 import { translate } from "lib/i18n/translate";
 
 export type CalendarEventName = "unknown" | "calendar" | SeasonalEventName;
+
 export type SeasonalEventName =
   | "tornado"
   | "tsunami"
   | "fullMoon"
-  | "greatFreeze";
+  | "greatFreeze"
+  | "insectPlague";
 
 export type CalendarEvent = {
   triggeredAt: number;
@@ -38,7 +41,13 @@ export function getPendingCalendarEvent({
     // Has not been triggered already
     .filter((event) => {
       const isSeasonalEvent = (name: string): name is SeasonalEventName => {
-        return ["tornado", "tsunami", "fullMoon", "greatFreeze"].includes(name);
+        return [
+          "tornado",
+          "tsunami",
+          "fullMoon",
+          "greatFreeze",
+          "insectPlague",
+        ].includes(name);
       };
 
       return isSeasonalEvent(event.name)
@@ -93,26 +102,40 @@ export function getActiveCalenderEvent({
     return "greatFreeze";
   }
 
+  if (
+    game.calendar.insectPlague?.triggeredAt &&
+    new Date(game.calendar.insectPlague.triggeredAt).getTime() >
+      Date.now() - 1000 * 60 * 60 * 24
+  ) {
+    return "insectPlague";
+  }
+
   // TODO more events
   return undefined;
 }
 
 export const WEATHER_SHOP: Partial<Record<InventoryItemName, Tool>> = {
   "Tornado Pinwheel": {
-    name: "Tornado Pinwheel",
+    name: translate("calendar.events.tornado.prevention"),
     description: translate("description.tornadoPinwheel"),
     ingredients: {},
     price: 1000,
   },
   Mangrove: {
-    name: "Mangrove",
+    name: translate("calendar.events.tsunami.prevention"),
     description: translate("description.mangrove"),
     ingredients: {},
     price: 1000,
   },
   "Thermal Stone": {
-    name: "Thermal Stone",
+    name: translate("calendar.events.greatFreeze.prevention"),
     description: translate("description.thermalStone"),
+    ingredients: {},
+    price: 1000,
+  },
+  "Protective Pesticide": {
+    name: translate("calendar.events.insectPlague.prevention"),
+    description: translate("description.protectivePesticide"),
     ingredients: {},
     price: 1000,
   },
@@ -200,4 +223,5 @@ export const CALENDAR_EVENT_ICONS: Record<CalendarEventName, string> = {
   unknown: SUNNYSIDE.icons.lightning,
   calendar: calendar,
   greatFreeze: greatFreeze,
+  insectPlague: locust,
 };

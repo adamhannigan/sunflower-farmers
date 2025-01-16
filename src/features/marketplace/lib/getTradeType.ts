@@ -11,6 +11,7 @@ export const ITEM_TRADE_TYPES: {
 } = {
   collectibles: {
     "Thermal Stone": "instant",
+    "Protective Pesticide": "instant",
     "Tornado Pinwheel": "instant",
     Mangrove: "instant",
     "Sunflower Seed": "instant",
