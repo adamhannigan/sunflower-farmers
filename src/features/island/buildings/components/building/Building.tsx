@@ -27,7 +27,7 @@ import tornadoIcon from "assets/icons/tornado.webp";
 import tsunamiIcon from "assets/icons/tsunami.webp";
 import { secondsToString } from "lib/utils/time";
 import {
-  getActiveCalenderEvent,
+  getActiveCalendarEvent,
   SeasonalEventName,
 } from "features/game/types/calendar";
 
@@ -248,7 +248,7 @@ function isBuildingDestroyed({
   name: BuildingName;
   game: GameState;
 }): DestructiveEvent | false {
-  const calendarEvent = getActiveCalenderEvent({ game });
+  const calendarEvent = getActiveCalendarEvent({ game });
 
   if (!calendarEvent) {
     return false;

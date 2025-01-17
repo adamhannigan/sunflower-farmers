@@ -1,5 +1,8 @@
 import { GameState, InventoryItemName, TemperateSeasonName } from "./game";
 import { Tool } from "./tools";
+import { SUNNYSIDE } from "assets/sunnyside";
+import { translate } from "lib/i18n/translate";
+
 import summer from "assets/icons/summer.webp";
 import autumn from "assets/icons/autumn.webp";
 import winter from "assets/icons/winter.webp";
@@ -9,15 +12,15 @@ import fullMoon from "assets/icons/full_moon.webp";
 import tsunami from "assets/icons/tsunami.webp";
 import greatFreeze from "assets/icons/great-freeze.webp";
 import calendar from "assets/icons/calendar.webp";
-import { SUNNYSIDE } from "assets/sunnyside";
-import { translate } from "lib/i18n/translate";
+import sunshower from "assets/icons/sunshower.webp";
 
 export type CalendarEventName = "unknown" | "calendar" | SeasonalEventName;
 export type SeasonalEventName =
   | "tornado"
   | "tsunami"
   | "fullMoon"
-  | "greatFreeze";
+  | "greatFreeze"
+  | "sunshower";
 
 export type CalendarEvent = {
   triggeredAt: number;
@@ -38,7 +41,13 @@ export function getPendingCalendarEvent({
     // Has not been triggered already
     .filter((event) => {
       const isSeasonalEvent = (name: string): name is SeasonalEventName => {
-        return ["tornado", "tsunami", "fullMoon", "greatFreeze"].includes(name);
+        return [
+          "tornado",
+          "tsunami",
+          "fullMoon",
+          "greatFreeze",
+          "sunshower",
+        ].includes(name);
       };
 
       return isSeasonalEvent(event.name)
@@ -61,7 +70,7 @@ export function getPendingCalendarEvent({
   return upcoming[0].name;
 }
 
-export function getActiveCalenderEvent({
+export function getActiveCalendarEvent({
   game,
 }: {
   game: GameState;
@@ -91,6 +100,14 @@ export function getActiveCalenderEvent({
       Date.now() - 1000 * 60 * 60 * 24
   ) {
     return "greatFreeze";
+  }
+
+  if (
+    game.calendar.sunshower?.triggeredAt &&
+    new Date(game.calendar.sunshower.triggeredAt).getTime() >
+      Date.now() - 1000 * 60 * 60 * 24
+  ) {
+    return "sunshower";
   }
 
   // TODO more events
@@ -200,4 +217,5 @@ export const CALENDAR_EVENT_ICONS: Record<CalendarEventName, string> = {
   unknown: SUNNYSIDE.icons.lightning,
   calendar: calendar,
   greatFreeze: greatFreeze,
+  sunshower: sunshower,
 };
