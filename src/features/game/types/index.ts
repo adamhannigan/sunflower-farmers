@@ -52,6 +52,9 @@ export const KNOWN_IDS: Record<InventoryItemName, number> = {
   "Tomato Seed": 128,
   "Lemon Seed": 129,
   "Barley Seed": 130,
+  "Duskberry Seed": 131,
+  "Grimroot Seed": 132,
+  "Lunacress Seed": 133,
 
   Sunflower: 201,
   Potato: 202,
@@ -110,6 +113,9 @@ export const KNOWN_IDS: Record<InventoryItemName, number> = {
   Tomato: 255,
   Lemon: 256,
   Barley: 257,
+  Duskberry: 258,
+  Grimroot: 259,
+  Lunacress: 260,
 
   Axe: 301,
   Pickaxe: 302,
