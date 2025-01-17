@@ -1312,6 +1312,7 @@ export type Calendar = {
   tsunami?: CalendarEvent;
   fullMoon?: CalendarEvent;
   greatFreeze?: CalendarEvent;
+  sunshower?: CalendarEvent;
   vip?: {
     bundles: { name: VipBundle; boughtAt: number }[];
     expiresAt: number;

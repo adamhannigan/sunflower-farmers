@@ -52,6 +52,10 @@ const DUMMY_EVENT_INFORMATION: Record<
     description: "calendar.events.greatFreeze.description",
     prevention: "Thermal Stone",
   },
+  sunshower: {
+    title: "calendar.events.sunshower.title",
+    description: "calendar.events.sunshower.description",
+  },
   unknown: {
     title: "calendar.events.unknown.title",
     description: "calendar.events.unknown.description",
