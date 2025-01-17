@@ -874,6 +874,18 @@ export const ITEM_DETAILS: Items = {
     image: CROP_LIFECYCLE.Barley.crop,
     description: translate("description.barley"),
   },
+  Duskberry: {
+    image: CROP_LIFECYCLE.Duskberry.crop,
+    description: translate("description.duskberry"),
+  },
+  Grimroot: {
+    image: CROP_LIFECYCLE.Grimroot.crop,
+    description: translate("description.grimroot"),
+  },
+  Lunacress: {
+    image: CROP_LIFECYCLE.Lunacress.crop,
+    description: translate("description.lunacress"),
+  },
   "Sunflower Seed": {
     image: CROP_LIFECYCLE.Sunflower.seed,
     secondaryImage: CROP_LIFECYCLE.Sunflower.crop,
@@ -949,6 +961,18 @@ export const ITEM_DETAILS: Items = {
   "Soybean Seed": {
     image: CROP_LIFECYCLE.Soybean.seed,
     description: CROP_SEEDS["Soybean Seed"].description,
+  },
+  "Duskberry Seed": {
+    image: CROP_LIFECYCLE.Duskberry.seed,
+    description: CROP_SEEDS["Duskberry Seed"].description,
+  },
+  "Grimroot Seed": {
+    image: CROP_LIFECYCLE.Grimroot.seed,
+    description: CROP_SEEDS["Grimroot Seed"].description,
+  },
+  "Lunacress Seed": {
+    image: CROP_LIFECYCLE.Lunacress.seed,
+    description: CROP_SEEDS["Lunacress Seed"].description,
   },
   "Apple Seed": {
     image: appleSeed,
