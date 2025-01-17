@@ -9,7 +9,7 @@ import { Tornado } from "./Tornado";
 import { Tsunami } from "./Tsunami";
 import { FullMoon } from "./FullMoon";
 import { GreatFreeze } from "./GreatFeeze";
-
+import { InsectPlague } from "./InsectPlague";
 export const CalendarEvent: React.FC = () => {
   const { gameState, gameService } = useGame();
   const { t } = useAppTranslation();
@@ -28,6 +28,9 @@ export const CalendarEvent: React.FC = () => {
         <GreatFreeze acknowledge={handleAcknowledge} />
       )}
       {event === "fullMoon" && <FullMoon acknowledge={handleAcknowledge} />}
+      {event === "insectPlague" && (
+        <InsectPlague acknowledge={handleAcknowledge} />
+      )}
       {!event && (
         <Panel>
           <Button
