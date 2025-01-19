@@ -27,6 +27,14 @@ export type CalendarEvent = {
   acknowledgedAt?: number;
 };
 
+export const SEASONAL_EVENTS: Record<SeasonalEventName, null> = {
+  tornado: null,
+  tsunami: null,
+  fullMoon: null,
+  greatFreeze: null,
+  bountifulHarvest: null,
+};
+
 export function getPendingCalendarEvent({
   game,
 }: {
@@ -40,7 +48,7 @@ export function getPendingCalendarEvent({
     // Has not been triggered already
     .filter((event) => {
       const isSeasonalEvent = (name: string): name is SeasonalEventName => {
-        return ["tornado", "tsunami", "fullMoon", "greatFreeze"].includes(name);
+        return Object.keys(SEASONAL_EVENTS).includes(name);
       };
 
       return isSeasonalEvent(event.name)
