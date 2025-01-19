@@ -8,6 +8,7 @@ import tornado from "assets/icons/tornado.webp";
 import fullMoon from "assets/icons/full_moon.webp";
 import tsunami from "assets/icons/tsunami.webp";
 import greatFreeze from "assets/icons/great-freeze.webp";
+import bountifulHarvest from "assets/icons/bountiful_harvest_icon.webp";
 import calendar from "assets/icons/calendar.webp";
 import { SUNNYSIDE } from "assets/sunnyside";
 import { translate } from "lib/i18n/translate";
@@ -17,12 +18,21 @@ export type SeasonalEventName =
   | "tornado"
   | "tsunami"
   | "fullMoon"
-  | "greatFreeze";
+  | "greatFreeze"
+  | "bountifulHarvest";
 
 export type CalendarEvent = {
   triggeredAt: number;
   protected?: boolean;
   acknowledgedAt?: number;
+};
+
+export const SEASONAL_EVENTS: Record<SeasonalEventName, null> = {
+  tornado: null,
+  tsunami: null,
+  fullMoon: null,
+  greatFreeze: null,
+  bountifulHarvest: null,
 };
 
 export function getPendingCalendarEvent({
@@ -38,7 +48,7 @@ export function getPendingCalendarEvent({
     // Has not been triggered already
     .filter((event) => {
       const isSeasonalEvent = (name: string): name is SeasonalEventName => {
-        return ["tornado", "tsunami", "fullMoon", "greatFreeze"].includes(name);
+        return Object.keys(SEASONAL_EVENTS).includes(name);
       };
 
       return isSeasonalEvent(event.name)
@@ -91,6 +101,13 @@ export function getActiveCalenderEvent({
       Date.now() - 1000 * 60 * 60 * 24
   ) {
     return "greatFreeze";
+  }
+  if (
+    game.calendar.bountifulHarvest?.triggeredAt &&
+    new Date(game.calendar.bountifulHarvest.triggeredAt).getTime() >
+      Date.now() - 1000 * 60 * 60 * 24
+  ) {
+    return "bountifulHarvest";
   }
 
   // TODO more events
@@ -200,4 +217,5 @@ export const CALENDAR_EVENT_ICONS: Record<CalendarEventName, string> = {
   unknown: SUNNYSIDE.icons.lightning,
   calendar: calendar,
   greatFreeze: greatFreeze,
+  bountifulHarvest: bountifulHarvest,
 };

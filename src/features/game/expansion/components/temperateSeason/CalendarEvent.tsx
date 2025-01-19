@@ -1,19 +1,25 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Button } from "components/ui/Button";
 import { Modal } from "components/ui/Modal";
 import { Panel } from "components/ui/Panel";
-import { useGame } from "features/game/GameProvider";
+import { Context } from "features/game/GameProvider";
 import { getActiveCalenderEvent } from "features/game/types/calendar";
 import { useAppTranslation } from "lib/i18n/useAppTranslations";
 import { Tornado } from "./Tornado";
 import { Tsunami } from "./Tsunami";
 import { FullMoon } from "./FullMoon";
-import { GreatFreeze } from "./GreatFeeze";
+import { GreatFreeze } from "./GreatFreeze";
+import { MachineState } from "features/game/lib/gameMachine";
+import { useSelector } from "@xstate/react";
+import { BountifulHarvest } from "./BountifulHarvest";
+
+const _state = (state: MachineState) => state.context.state;
 
 export const CalendarEvent: React.FC = () => {
-  const { gameState, gameService } = useGame();
+  const { gameService } = useContext(Context);
+  const state = useSelector(gameService, _state);
   const { t } = useAppTranslation();
-  const event = getActiveCalenderEvent({ game: gameState.context.state });
+  const event = getActiveCalenderEvent({ game: state });
 
   const handleAcknowledge = () => {
     gameService.send({ type: "calendarEvent.acknowledged" });
@@ -28,6 +34,9 @@ export const CalendarEvent: React.FC = () => {
         <GreatFreeze acknowledge={handleAcknowledge} />
       )}
       {event === "fullMoon" && <FullMoon acknowledge={handleAcknowledge} />}
+      {event === "bountifulHarvest" && (
+        <BountifulHarvest acknowledge={handleAcknowledge} />
+      )}
       {!event && (
         <Panel>
           <Button

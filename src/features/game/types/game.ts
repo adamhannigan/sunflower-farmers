@@ -1312,10 +1312,7 @@ export type Calendar = {
   tsunami?: CalendarEvent;
   fullMoon?: CalendarEvent;
   greatFreeze?: CalendarEvent;
-  vip?: {
-    bundles: { name: VipBundle; boughtAt: number }[];
-    expiresAt: number;
-  };
+  bountifulHarvest?: CalendarEvent;
 };
 
 export interface GameState {
